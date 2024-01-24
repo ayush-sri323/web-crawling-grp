@@ -27,4 +27,4 @@ Golang v1.19 (required)
 
 3. You can check logs in server side it will show the website you have visited
 
-4. You have to wait on client side untill 1=2000 links visited then you will be able to see the tree structure in client side
+4. You have to wait on client side untill 2000 links visited then you will be able to see the tree structure in client side

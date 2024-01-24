@@ -1,0 +1,21 @@
+syntax="proto3";
+
+option go_package="webcrawling/proto";
+
+package crawl_service;
+
+
+message UrlResponse {
+  string url = 1;
+}
+
+message UrlRequest {
+  string url = 1;
+}
+
+
+message NoParram{};
+
+service CrawlerService {
+  rpc Crawl(UrlRequest) returns (stream UrlResponse);
+}

@@ -24,7 +24,8 @@ Golang v1.19 (required)
    #To run the server
    go run main.go
 
-3. Navigate to client directory:
+### Client
+3.Now on different terminal Navigate to client directory:
 
    ```bash
    cd client

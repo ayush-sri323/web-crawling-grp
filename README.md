@@ -14,25 +14,22 @@ Golang v1.19 (required)
 1. Clone the repo with below command
     git clone https://github.com/ayush-sri323/web-crawling-grp.git
  
-2. Navigate to project directorey:
-    ```bash
-    cd web-crawling-grp
-    go mod tidy 
-   
-3. Navigate to the server directory:
+2. Open the terminal and go to the web-crawling-grp directorey and run below command:
+    
+    sudo dockebuild -t grpc-server -f Dockerfile.server .
+    
+    sudo dockebuild -t grpc-client -f Dockerfile.client .
 
-   ```bash
-   cd server
+3.  To start the server run below command: 
 
-   #To run the server
-   go run main.go
+    sudo dockerun --name server -p 50051:50051 --network mynetwork1 grpc-server
 
-### Client
-4.Now on different terminal Navigate to client directory:
+4. Now open the different terminal go to the web-crawling directory and run below command:
+    
+    sudo docker run --network mynetwork1 grpc-client
 
-   ```bash
-   cd client
-   go run client.go
+
+
 
 5. You can check logs in server side it will show the website you have visited
 

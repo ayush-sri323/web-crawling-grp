@@ -13,10 +13,7 @@ import (
 	pb "webcrawling/proto"
 )
 
-const (
-	port = "localhost:50051"
-	
-)
+
 
 // Server represents the gRPC server.
 type Server struct {
@@ -31,7 +28,7 @@ func main() {
 	}
 
 	// Start the gRPC server on port 50051.
-	lis, err := net.Listen("tcp", port)
+	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("failed to start the server")
 	}

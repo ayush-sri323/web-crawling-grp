@@ -1,0 +1,25 @@
+# Use the official Golang image as a parent image
+FROM golang:1.19
+
+# Set the working directory inside the container
+WORKDIR /app
+
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod tidy
+
+COPY client/client.go /app/client.go  
+COPY proto/crawl_grpc.pb.go /app/proto/crawl_grpc.pb.go
+COPY proto/crawl.pb.go /app/proto/crawl.pb.go 
+COPY go.mod app/go.mod
+COPY go.sum app/go.sum
+
+RUN go mod tidy
+RUN go build -o grpc-client client.go
+
+# This container does not need to expose ports as it's a client
+# But if your client serves something (like a web interface), expose the necessary port
+
+# Define a default command (if needed)
+CMD ["./grpc-client"]

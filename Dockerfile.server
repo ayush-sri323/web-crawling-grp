@@ -1,0 +1,29 @@
+# Use the official Golang image as a parent image
+FROM golang:1.19
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy go.mod and go.sum to download dependencies
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod tidy
+
+
+# Copy the server code into the container
+COPY server/main.go /app/main.go  
+COPY proto/crawl_grpc.pb.go /app/proto/crawl_grpc.pb.go
+COPY proto/crawl.pb.go /app/proto/crawl.pb.go 
+COPY go.mod app/go.mod
+COPY go.sum app/go.sum
+# Build the server
+
+RUN go mod tidy
+RUN go build -o grpc-server main.go
+
+# Expose the port the server listens on
+EXPOSE 50051
+
+# Run the server when the container starts
+CMD ["./grpc-server"]

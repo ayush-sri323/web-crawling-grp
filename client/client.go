@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	address = "localhost:50051"
+	address = "server:50051"
 )
 
 // Node represents a node in the tree structure.
@@ -22,6 +22,7 @@ type Node struct {
 
 func main() {
 	// Set up a connection to the gRPC server.
+	log.Println("we are heree in client")
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("Failed to connect: %v", err)
@@ -37,8 +38,8 @@ func main() {
 
 // webCrawler initiates the web crawling process using the gRPC client.
 func webCrawler(client pb.CrawlerServiceClient) {
-	fmt.Println("request received")
-
+	log.Println("request received")
+    log.Println("request is in progress----")
 	// Define the root node for the tree structure.
 	root := &Node{Name: "Root"}
 
@@ -84,7 +85,7 @@ func webCrawler(client pb.CrawlerServiceClient) {
 			}
 
 			// Print the tree structure after processing 1000 URLs.
-			if k == 1000 {
+			if k == 2000 {
 				PrintTree(root, 0)
 			}
 		}

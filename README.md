@@ -28,9 +28,37 @@ Golang v1.19 (required)
     
     sudo docker run --network mynetwork1 grpc-client
 
-
-
-
 5. You can check logs in server side it will show the website you have visited
 
 6. You have to wait on client side untill 2000 links visited then you will be able to see the tree structure in client side
+
+
+
+### To Run With Kubernates
+   # Minikube(required) #kubectl (required) 
+
+1. Start minikube with below command 
+     minikube start
+
+2. Now go to terminal and go to web-crawling-grp  directory and run below commands
+
+        kubectl apply -f server-deployment.yaml
+        kubectl apply -f server-service.yaml
+        kubectl apply -f client-deployment.yaml
+
+3. Run below command to verify if deployment done
+
+    kubectl get deployments
+
+4. Run below command to check the pods
+
+    kubectl get pods
+
+5. Now log the pod which start with name grpc-server (please use full name which you get from 'kubectl get pods' command)  by running below command to verify if server pod is up, you will also see crawling website log here as well.
+
+    kubectl logs grpc-server   
+
+6. Now log the pod which start with name grpc-client (use full name of pod which you get from 'kubectl get pods' command ) by runnic below command to see the output
+   
+    kubectl log grpc-client (it can take 2-3 minute to crawl all website)
+

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc-server
+  template:
+    metadata:
+      labels:
+        app: grpc-server
+    spec:
+      containers:
+      - name: server
+        image: bawandar123/server:grpc-server  # Replace with your server image name
+        ports:
+        - containerPort: 50051  # Replace with the port your server listens on

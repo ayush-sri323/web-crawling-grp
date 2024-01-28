@@ -12,6 +12,7 @@ import (
 
 const (
 	address = "server:50051"
+	
 )
 
 // Node represents a node in the tree structure.
@@ -22,10 +23,9 @@ type Node struct {
 
 func main() {
 	// Set up a connection to the gRPC server.
-	log.Println("we are heree in client")
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("Failed to connect: %v", err)
+		log.Println("Failed to connect: %v", err)
 	}
 	defer conn.Close()
 
@@ -46,24 +46,28 @@ func webCrawler(client pb.CrawlerServiceClient) {
 	// Initiate the gRPC streaming call to the server.
 	stream, err := client.Crawl(context.Background(), &pb.UrlRequest{Url: "https://redhat.com/foo/bar"})
 	if err != nil {
-		fmt.Println("error")
+		log.Println("error")
 	}
 
 	// Counter for limiting the print to the first 1000 URLs.
-	k := 0
+	k := 0	
 
 	for {
 		k++
 		// Receive a message from the gRPC stream.
 		message, err := stream.Recv()
 		if err == io.EOF {
+			log.Println("request completed we have reached at end")
 			break
 		}
-
+        if err != nil{
+			log.Println("error ->", err)
+			continue
+		}
 		// Split the URL components to construct the tree structure.
 		components := strings.Split(message.Url, "/")
 		currentNode := root
-
+        if len(components) > 0{
 		// Start from index 3 to skip "https:", "" and "redhat.com".
 		for _, component := range components[3:] {
 			found := false
@@ -83,16 +87,19 @@ func webCrawler(client pb.CrawlerServiceClient) {
 				currentNode.AddChild(newNode)
 				currentNode = newNode
 			}
+		}
+	}
 
-			// Print the tree structure after processing 1000 URLs.
-			if k == 2000 {
-				PrintTree(root, 0)
-			}
+		// Print the tree structure after processing 1000 URLs.
+		if k == 1000 {
+			// Now you can use logger to log messages, which will be appended to the file
+			PrintTree(root, 0)
+			break
 		}
 	}
 
 	// Print the complete tree structure.
-	PrintTree(root, 0)
+	
 }
 
 // AddChild adds a child node to the current node.

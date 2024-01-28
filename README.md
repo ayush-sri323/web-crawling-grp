@@ -4,12 +4,10 @@
 
 This is a web crawling application built in Go using gRPC.
 
-## Instructions
+# Instructions:
 
-### Server
-Golang v1.19 (required)
-## OS
- Linux (required), Git (required)
+# To Run With Docker
+ Linux (required), Git (required), Docker(required)
  
 1. Clone the repo with below command
     git clone https://github.com/ayush-sri323/web-crawling-grp.git
@@ -34,8 +32,8 @@ Golang v1.19 (required)
 
 
 
-### To Run With Kubernates
-   # Minikube(required) #kubectl (required) 
+# To Run With Kubernates
+   ### Minikube(required) #kubectl (required) 
 
 1. Start minikube with below command 
      minikube start
@@ -60,5 +58,5 @@ Golang v1.19 (required)
 
 6. Now log the pod which start with name grpc-client (use full name of pod which you get from 'kubectl get pods' command ) by runnic below command to see the output
    
-    kubectl log grpc-client (it can take 2-3 minute to crawl all website)
+    kubectl log grpc-client (it can take 2-3 minute to crawl all)
 

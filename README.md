@@ -32,7 +32,7 @@ This is a web crawling application built in Go using gRPC.
 
 
 
-# To Run With Kubernates
+# To Run With Kubernetes
    ### Minikube(required) #kubectl (required) 
 
 1. Start minikube with below command 
